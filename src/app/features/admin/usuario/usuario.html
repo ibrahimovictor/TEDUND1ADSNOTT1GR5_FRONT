@@ -1,0 +1,22 @@
+<div class="header">
+  <h1>Usuários</h1>
+</div>
+
+<div class="content">
+  <div class="actions">
+    <mat-form-field class="search">
+      <mat-label>Pesquisar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. João" #input>
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+    <div class="action-buttons">
+      <button matButton="filled" class="btn-novo" (click)="openNovoUsuarioDialog()">
+        Novo
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <hr>
+  <app-tabela-usuarios [filter]="filterText()"></app-tabela-usuarios>
+</div>

@@ -1,0 +1,101 @@
+<div class="header">
+    <h2 mat-dialog-title>Dados do Programa</h2>
+    <hr>
+</div>
+<div class="content">
+    <form class="form-programa" [formGroup]="programaForm">
+      <div class="input-z1">
+        <mat-form-field class="input-disciplina" appearance="fill">
+          <mat-label>Disciplina (ID)</mat-label>
+          <input readonly [formControl]="disciplinaIdControl" type="text" matInput name="disciplinaId" placeholder="ID da disciplina">
+        </mat-form-field>
+        <section class="ativo-section">
+          <mat-checkbox [formControl]="ativoControl" class="ativo">Ativo</mat-checkbox>
+        </section>
+      </div>
+
+      <div class="input-z2">
+        <mat-form-field class="input-matriz">
+          <mat-label>Matriz</mat-label>
+          <mat-select [formControl]="matrizIdControl">
+            @for (matriz of matrizesPossiveis(); track matriz) {
+              <mat-option [value]="matriz.id">{{matriz.nomeCurso + ' - ' + matriz.campus}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field class="input-ementa">
+            <mat-label>Ementa</mat-label>
+            <textarea
+              [formControl]="ementaControl"
+              matInput name="ementa"
+              placeholder="Descreva a ementa do programa aqui..."
+              rows="3"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="2"
+              cdkAutosizeMaxRows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="input-objetivos">
+            <mat-label>Objetivos</mat-label>
+            <textarea
+              [formControl]="objetivosControl"
+              matInput name="objetivos"
+              placeholder="Descreva os objetivos do programa aqui..."
+              rows="3"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="2"
+              cdkAutosizeMaxRows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="input-conteudo">
+            <mat-label>Conteúdo</mat-label>
+            <textarea
+      [formControl]="conteudoProgramaticoControl"
+              matInput
+              name="conteudo"
+      placeholder="Descreva o conteúdo do programa aqui... (uma linha por item)"
+              rows="3"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="2"
+              cdkAutosizeMaxRows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="input-metodologia">
+            <mat-label>Metodologia</mat-label>
+            <textarea
+              [formControl]="metodologiaControl"
+              matInput
+              name="metodologia"
+              placeholder="Descreva a metodologia do programa aqui..."
+              rows="3"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="2"
+              cdkAutosizeMaxRows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="input-avaliacao">
+            <mat-label>Avaliação</mat-label>
+            <textarea
+              [formControl]="sistemaAvaliacaoControl"
+              matInput
+              name="avaliacao"
+              placeholder="Descreva os critérios de avaliação do programa aqui..."
+              rows="3"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="2"
+              cdkAutosizeMaxRows="3"></textarea>
+        </mat-form-field>
+    </form>
+
+    <div class="action-buttons">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button matButton="filled" [disabled]="!programaForm.valid" (click)="onSubmit()">Salvar</button>
+    </div>
+</div>

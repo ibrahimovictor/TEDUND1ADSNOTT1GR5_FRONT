@@ -1,0 +1,50 @@
+/* ======================================================= */
+/* ESTILOS BÁSICOS GLOBAIS */
+/* ======================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Calibri', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+html,
+body {
+    height: 100vh;
+}
+
+body {
+    margin: 0;
+    font-family: Calibri, sans-serif;
+}
+
+:root{
+    --primary-color: #2196f3;
+    --secondary-color: #6eb8f5;
+    --tertiary-color: #c3e3fd;
+
+    /* Cores do snackbar */
+    --snackbar-bg-error-color: #dc3545;
+    --snackbar-bg-success-color: #28a745;
+    --snackbar-bg-info-color: #175db8;
+    --snackbar-bg-warning-color: #ffc107;
+    --snackbar-text-color: #fff;
+}
+
+.img-fill {
+    position: relative !important;
+}
+
+.clearfix {
+  clear: both;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+  -webkit-appearance: none; /* Remove a aparência padrão do navegador */
+}

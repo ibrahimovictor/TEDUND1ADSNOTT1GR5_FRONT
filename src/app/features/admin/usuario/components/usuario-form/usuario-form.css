@@ -1,0 +1,87 @@
+:host {
+  display: block;
+  padding: 30px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+    /* adicionado para que elementos absolutos funcionem dentro do modal */
+    padding-bottom: 80px;
+    /* espaço extra para os botões fixos */
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.header hr {
+  margin-top: 10px;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.section-professor{
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.header-info-professos{
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.input{
+  display: block !important;
+  float: left !important;
+  margin-right: 20px;
+}
+
+.input-nome-completo{
+  width: 80%;
+}
+
+.input-usuario{
+  width: 50%;
+}
+
+.input-senha{
+  width: 42%;
+}
+
+.input-perfil{
+  width: 50%;
+}
+
+.input-numero-registro{
+  width: 50%;
+}
+
+.input-escola{
+  width: 60%;
+}
+
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  position: absolute;
+    /* fixa os botões dentro do modal */
+    right: 16px;
+    /* distância da borda direita */
+    bottom: 16px;
+    /* distância da borda inferior */
+    z-index: 5;
+    background: transparent;
+}

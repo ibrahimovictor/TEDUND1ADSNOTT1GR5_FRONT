@@ -1,0 +1,29 @@
+<div class="detalhes-wrapper">
+  <div class="header">
+    <h2>Informações da Matriz</h2>
+  </div>
+  <div class="content">
+    <hr>
+    <div class="form-matriz-wrapper">
+      <form class="form-matriz" [formGroup]="formMatriz">
+        <div class="input-z1">
+          <mat-form-field class="input-nome">
+            <mat-label>Nome</mat-label>
+            <input [formControl]="nomeControl" type="text" matInput name="nome" placeholder="Nome da matriz">
+          </mat-form-field>
+          <mat-form-field class="input-ano">
+            <mat-label>Ano</mat-label>
+            <input [formControl]="anoControl" type="number" matInput name="ano" placeholder="Ano">
+          </mat-form-field>
+        </div>
+        <mat-form-field class="input-descricao">
+          <mat-label>Descrição</mat-label>
+          <textarea [formControl]="descricaoControl" matInput name="descricao" placeholder="Descrição da matriz" rows="3"></textarea>
+        </mat-form-field>
+      </form>
+      <div class="action-buttons">
+        <button matButton="filled" [disabled]="!formMatriz.valid">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

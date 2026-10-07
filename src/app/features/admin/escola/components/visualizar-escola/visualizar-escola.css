@@ -1,0 +1,101 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:host {
+  padding: 16px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-nome{
+  width: 60%;
+}
+
+.header {
+  box-sizing: border-box;
+  text-align: start;
+  font-size: 1.8rem;
+  font-weight: 600;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  margin: 20px 0px !important;
+  align-self: center;
+  justify-self: center;
+}
+
+.content {
+  width: 70%;
+  height: 100%;
+  margin: auto;
+}
+
+.detalhes-wrapper {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 20px;
+  width: 70%;
+  height: 80%;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.info-escola-content{
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  height: 100%;
+  width: 100%;
+  gap: 10px;
+}
+
+.cursos-wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-apagar {
+  background-color: #ff4d4d !important;
+  color: white;
+}
+
+.footer-hr {
+  justify-self: end;
+  align-self: end;
+
+}
+
+app-dynamic-table {
+  box-sizing: border-box;
+  min-height: 400px;
+  height: 100%;
+  width: 100%;
+  margin-top: 20px;
+}

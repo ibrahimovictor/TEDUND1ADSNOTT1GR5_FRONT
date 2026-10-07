@@ -1,0 +1,22 @@
+<div class="header">
+    <h1>Professores</h1>
+</div>
+
+<div class="content">
+    <div class="actions">
+        <mat-form-field class="search">
+            <mat-label>Pesquisar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+            <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+
+        <div class="action-buttons">
+            <button matButton="filled" class="btn-novo" (click)="openNovoProfessorDialog()">
+                Novo
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+    <hr>
+    <app-tabela-professores [filter]="filterText()"></app-tabela-professores>
+</div>

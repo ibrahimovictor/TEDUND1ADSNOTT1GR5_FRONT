@@ -1,0 +1,52 @@
+:host{
+    height: 100%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    margin: auto;
+}
+
+app-tabela-professores {
+    display: inline-block;
+    margin-top: 20px;
+    height: 70%;
+    min-height: 500px;
+    max-height: 650px;
+}
+
+.content{
+    min-height: 75%;
+}
+
+.header{
+    width: 100%;
+    font-size: 1.8rem;
+    margin-bottom: 70px;
+    position: relative;
+    left: -50px;
+}
+
+.actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.action-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search{
+    width: 25%;
+    min-width: 300px;
+}
+
+hr{
+    border: none;
+    border-top: 1px solid #ccc;
+    width: 100%;
+}

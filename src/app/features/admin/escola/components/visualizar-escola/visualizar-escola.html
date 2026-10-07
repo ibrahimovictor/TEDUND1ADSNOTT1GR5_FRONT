@@ -1,0 +1,57 @@
+<div class="detalhes-wrapper">
+  <div class="header">
+    <h2>Informações da Escola</h2>
+  </div>
+  <div class="content">
+    <div class="info-escola-content">
+      <form class="form-escola" [formGroup]="escolaForm">
+
+        <input type="hidden" formControlName="id">
+
+        <mat-form-field class="input input-nome">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" required placeholder="Informe o nome da escola">
+        </mat-form-field>
+
+        <div class="action-buttons">
+          <button matButton="filled" class="btn-apagar" (click)="openConfirmDeleteDialog()">
+            Apagar
+          </button>
+          <button matButton="filled" class="btn-salvar" (click)="onSubmit()">
+            Salvar
+          </button>
+
+
+        </div>
+    </form>
+
+    <hr>
+
+    <div class="cursos-wrapper">
+          <h2>Cursos da Escola</h2>
+          <div class="actions">
+            <div class="action-buttons">
+              <button matButton="filled" class="btn-novo" (click)="openNovoCursoDialog()">
+                Novo
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+          <app-dynamic-table
+            [data]="data()"
+            [filter]="filter"
+            [columns]="tableColumns"
+            [showActions]="true">
+
+            <!-- Template de ações -->
+            <ng-template #actionsTemplate let-row>
+                <button mat-icon-button (click)="$event.stopPropagation(); openCursoFormDialog(row)" matTooltip="Editar">
+                    <mat-icon>visibility</mat-icon>
+                </button>
+            </ng-template>
+          </app-dynamic-table>
+
+        </div>
+    </div>
+  </div>
+</div>

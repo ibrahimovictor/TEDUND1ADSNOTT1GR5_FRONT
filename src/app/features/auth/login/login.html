@@ -1,0 +1,35 @@
+<div class="left-side">
+    <div class="info-content">
+        <h2>Bem vindos ao Sistema CPDB</h2>
+        <p>Controle seus programas de Disciplinas, Cursos e Professores com excelência.</p>
+    </div>
+</div>
+
+<div class="right-side">
+    <div class="form-login-wrapper">
+        <div class="logo-wrapper">
+            <img class="img-fill" ngSrc="images/logo-responsivo-ucsal.png" alt="Logo da UCSAL" fill priority>
+        </div>
+        <form class="login-form" [formGroup]="loginForm">
+             <mat-form-field>
+                <mat-label>Usuário</mat-label>
+                <input matInput [formControl]="usuarioControl" type="text" name="usuario" placeholder="Digite seu Usuário">
+                <mat-icon matPrefix>person</mat-icon>
+                @if(usuarioControl.invalid && (usuarioControl.touched || usuarioControl.dirty)){
+                    <mat-error>O usuário é obrigatório</mat-error>
+                }
+                
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Senha</mat-label>
+                <input matInput [formControl]="senhaControl" type="password" name="senha" placeholder="Digite sua senha">
+                <mat-icon matPrefix>lock</mat-icon>
+                @if(senhaControl.invalid && (senhaControl.touched || senhaControl.dirty)){
+                    <mat-error>A senha é obrigatória</mat-error>
+                }
+            </mat-form-field>
+            <button class="btn-entrar" matButton="filled" (click)="onSubmit()">Entrar</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+:host{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.form-professor-header{
+    box-sizing: border-box;
+    text-align: start;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+.form-professor{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-professor-header h2{
+    padding-left: 25px;
+    padding-top: 20px;
+}
+
+.dados-basicos{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.input-escola-wrapper{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.ativo-section{
+    align-items: center;
+}
+
+.dados-acesso {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.form-professor-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form-professor-header hr{
+    border: none;
+    border-top: 1px solid #ccc;
+    width: 90%;
+    margin-top: 10px;
+    align-self: center;
+    justify-self: center;
+}
+
+.action-buttons{
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-nome{
+    width:80%;
+}
+
+.input-escola{
+    width:60%;
+}
+
+.ativo-section{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-login{
+    width:60%;
+}
+
+.input-senha{
+    width:70%;
+}

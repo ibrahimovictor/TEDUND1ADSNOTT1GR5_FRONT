@@ -1,0 +1,101 @@
+mat-sidenav-container{
+    height: 100vh;
+}
+
+mat-sidenav{
+    border-radius: 0px;
+    width: auto;
+    min-width: 100px;
+    background-color: var(--primary-color); 
+}
+
+.sidenav-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.logo-info-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    color: white;
+}
+
+.logo-info-wrapper h1{
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.logo-wrapper{
+    width: 50px;
+    height: 60px;
+}
+
+mat-list-item{
+    padding: 20px 5px !important;
+    height: auto !important;
+    border-radius: 0px !important;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.nav-items-wrapper{
+    margin: 5px 0px;
+}
+
+mat-list-item span{
+    color: white !important;
+    text-align: center !important;
+    white-space: pre-line;
+}
+
+mat-list-item mat-icon{
+    color: white !important;
+    margin-bottom: 4px;
+}
+
+mat-list-item:hover mat-icon,
+mat-list-item:hover span {
+    color: #e3f2fd !important;
+    transition: color 0.2s ease;
+}
+
+mat-list-item.active-nav-item {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+}
+
+mat-list-item.active-nav-item mat-icon,
+mat-list-item.active-nav-item span {
+    color: white !important;
+    font-weight: bold;
+}
+
+mat-list-item.active-nav-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+mat-list-item.active-nav-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    border-radius: 8px;
+    pointer-events: none;
+}

@@ -1,0 +1,42 @@
+<div class="form-professor-header">
+    <h2 mat-dialog-title>Dados do Professor</h2>
+    <hr>
+</div>
+<div class="form-professor-wrapper">
+    <form class="form-professor" [formGroup]="formProfessor">
+        <input [formControl]="idControl" type="hidden" name="id">
+
+      <div class="dados-basicos">
+        <mat-form-field class="input-nome">
+          <mat-label>Nome</mat-label>
+          <input [formControl]="nomeControl" matInput name="nome" placeholder="Digite o nome do professor">
+        </mat-form-field>
+
+        <div class="input-escola-wrapper">
+          <mat-form-field class="input-escola">
+            <mat-label>Escola</mat-label>
+            <input [formControl]="escolaControl" matInput name="escola" placeholder="Digite o nome da escola">
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="dados-acesso">
+        <mat-form-field class="input-login">
+          <mat-label>Login</mat-label>
+          <input [formControl]="loginControl" matInput name="login" placeholder="Digite o login do professor">
+        </mat-form-field>
+
+        <mat-form-field class="input-senha">
+          <mat-label>Senha</mat-label>
+          <input [formControl]="senhaControl" matInput type="password" name="senha"
+                 placeholder="Digite a senha do professor">
+        </mat-form-field>
+      </div>
+    </form>
+
+    <div class="action-buttons">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button matButton="filled" (click)="onSubmit()">Salvar</button>
+    </div>
+</div>

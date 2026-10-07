@@ -1,0 +1,16 @@
+<app-dynamic-table
+    [data]="dadosMontados()"
+    [filter]="filter"
+    [columns]="tableColumns"
+    [showActions]="true">
+
+    <!-- Template de ações -->
+    <ng-template #actionsTemplate let-row>
+        <button mat-icon-button color="primary" (click)="$event.stopPropagation(); openEditarDisciplinaDialog(row)" matTooltip="Editar">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="$event.stopPropagation(); openConfirmDeleteDialog(row)" matTooltip="Excluir">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </ng-template>
+</app-dynamic-table>

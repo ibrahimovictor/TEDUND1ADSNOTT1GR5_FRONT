@@ -1,0 +1,29 @@
+<mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+        <div class="sidenav-wrapper">
+            <div class="logo-info-wrapper">
+                <div class="logo-wrapper">
+                    <img class="img-fill" ngSrc="images/apenas-logo-responsivo-ucsal.png" alt="Logo da UCSAL" fill priority>
+                    <h1>UCSAL</h1>
+                </div>
+            </div>
+            <mat-nav-list class="nav-items-wrapper">
+                @for (item of navItems; track item.route) {
+                    <mat-list-item class="nav-items" [routerLink]="item.route" routerLinkActive="active-nav-item">
+                        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+                        <span matListItemTitle>{{ item.label }}</span>
+                    </mat-list-item>
+                }
+            </mat-nav-list>
+            <mat-nav-list class="logout-section">
+                <mat-list-item (click)="openLogoutDialog()">
+                    <mat-icon matListItemIcon>logout</mat-icon>
+                    <span matListItemTitle>Sair</span>
+                </mat-list-item>
+            </mat-nav-list>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

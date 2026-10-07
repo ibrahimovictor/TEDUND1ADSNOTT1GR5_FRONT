@@ -1,0 +1,98 @@
+:host{
+    padding: 16px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+app-tabela-referencias {
+  display: inline-block;
+  height: 70%;
+  min-height: 500px;
+  max-height: 650px;
+}
+
+.header{
+  box-sizing: border-box;
+  text-align: start;
+  font-size: 1.8rem;
+  font-weight: 600;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+mat-tab{
+  padding: 16px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.header h2{
+  position: relative;
+  left: -50px;
+}
+
+.content{
+    width: 100%;
+    height: 100%;
+}
+
+.form-programa-wrapper{
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-programa {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    height: 100%;
+}
+
+.input-z1{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.input-matriz{
+    width: 40%;
+}
+
+.detalhes-wrapper{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 20px;
+  width: 70%;
+  height: 80%;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.action-buttons{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-apagar{
+  background-color: #ff4d4d !important;
+  color: white;
+}

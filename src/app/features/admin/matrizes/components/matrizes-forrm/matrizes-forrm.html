@@ -1,0 +1,57 @@
+<form #matrizForm="ngForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="nome">Nome</label>
+    <input id="nome" name="nome" [(ngModel)]="matriz.nome" required />
+  </div>
+
+  <div>
+    <label for="turnoPadrao">Turno Padrão</label>
+    <input id="turnoPadrao" name="turnoPadrao" [(ngModel)]="matriz.turnoPadrao" required />
+  </div>
+
+  <div>
+    <label for="campus">Campus</label>
+    <input id="campus" name="campus" [(ngModel)]="matriz.campus" required />
+  </div>
+
+  <div>
+    <label for="habilitacao">Habilitação</label>
+    <input id="habilitacao" name="habilitacao" [(ngModel)]="matriz.habilitacao" required />
+  </div>
+
+  <div>
+    <label for="horasAtividadesComplementares">Horas Atividades Complementares</label>
+    <input type="number" id="horasAtividadesComplementares" name="horasAtividadesComplementares" [(ngModel)]="matriz.horasAtividadesComplementares" required />
+  </div>
+
+  <div>
+    <label for="horasDisciplinasObrigatorias">Horas Disciplinas Obrigatórias</label>
+    <input type="number" id="horasDisciplinasObrigatorias" name="horasDisciplinasObrigatorias" [(ngModel)]="matriz.horasDisciplinasObrigatorias" required />
+  </div>
+
+  <div>
+    <label for="horasDisciplinasExtras">Horas Disciplinas Extras</label>
+    <input type="number" id="horasDisciplinasExtras" name="horasDisciplinasExtras" [(ngModel)]="matriz.horasDisciplinasExtras" required />
+  </div>
+
+  <div>
+    <label for="horasTCC">Horas TCC</label>
+    <input type="number" id="horasTCC" name="horasTCC" [(ngModel)]="matriz.horasTCC" required />
+  </div>
+
+  <div>
+    <label for="cursoId">Curso</label>
+    <select id="cursoId" name="cursoId" [(ngModel)]="matriz.cursoId" required>
+      <option *ngFor="let curso of cursos" [value]="curso.id">{{ curso.nome }}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="disciplinaIds">Disciplinas</label>
+    <select id="disciplinaIds" name="disciplinaIds" [(ngModel)]="matriz.disciplinaIds" multiple>
+      <option *ngFor="let disciplina of disciplinas" [value]="disciplina.id">{{ disciplina.nome }}</option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="matrizForm.invalid">Salvar</button>
+</form>
