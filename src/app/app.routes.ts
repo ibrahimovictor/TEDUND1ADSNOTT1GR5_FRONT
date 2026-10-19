@@ -1,8 +1,12 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/guards/auth-guard';
 import { roleGuard } from './core/auth/guards/role-guard';
-import { UserRole } from './core';
 import { roleRedirectGuard } from './core/auth/guards/role-redirect-guard';
+import { UserRole } from './core';
+
+const ADMIN = [UserRole.ADMIN];
+const GESTAO = [UserRole.ADMIN, UserRole.COLABORADOR];
+const DISCENTE = [UserRole.USUARIO];
 
 export const routes: Routes = [
   {
@@ -14,71 +18,27 @@ export const routes: Routes = [
     loadComponent: () => import('./features/side-nav-bar/side-nav-bar').then(m => m.SideNavBar),
     canActivate: [authGuard],
     children: [
-      {
-        path: '',
-        canActivate: [roleRedirectGuard],
-        children: []
-      },
+      { path: '', pathMatch: 'full', canActivate: [roleRedirectGuard], children: [] },
 
-      // ADMIN
-      {
-        path: 'admin',
-        canMatch: [roleGuard([UserRole.ADMIN])],
-        children: [
-          {
-            path: 'escolas',
-            loadComponent: () => import('./features/admin/escola/escola').then(m => m.Escola)
-          },
-          {
-            path: 'escolas/detalhes/:id',
-            loadComponent: () => import('./features/admin/escola/components/visualizar-escola/visualizar-escola').then(m => m.VisualizarEscola)
-          },
-          {
-            path: 'disciplinas',
-            loadComponent: () => import('./features/admin/disciplinas/disciplinas').then(m => m.Disciplinas),
-          },
-          {
-            path: 'disciplinas/detalhes/:id',
-            loadComponent: () => import('./features/admin/disciplinas/components/visualizar-disciplina/visualizar-disciplina').then(m => m.VisualizarDisciplina)
-          },
-          {
-            path: 'matrizes',
-            loadComponent: () => import('./features/admin/matrizes/matrizes').then(m => m.Matrizes)
-          },
-          {
-            path: 'usuarios',
-            loadComponent: () => import('./features/admin/usuario/usuario').then(m => m.Usuario)
-          },
-          {
-            path: 'professores',
-            loadComponent: () => import('./features/admin/professores/professores').then(m => m.Professores)
-          },
-          {
-            path: 'programas',
-            loadComponent: () => import('./features/admin/programas/programas').then(m => m.Programas)
-          },
-          {
-            path: 'programas/detalhes/:idPrograma',
-            loadComponent: () => import('./shared/components/visualizar-programa/visualizar-programa').then(m => m.VisualizarPrograma)
-          },
-        ]
-      },
+      // Administrador
+      { path: 'ies', canMatch: [roleGuard(ADMIN)], loadComponent: () => import('./features/admin/ies/ies-page').then(m => m.IesPage) },
+      { path: 'centros-academicos', canMatch: [roleGuard(ADMIN)], loadComponent: () => import('./features/admin/centros-academicos/centros-academicos').then(m => m.CentrosAcademicos) },
+      { path: 'cursos', canMatch: [roleGuard(ADMIN)], loadComponent: () => import('./features/admin/cursos/cursos').then(m => m.Cursos) },
+      { path: 'docentes', canMatch: [roleGuard(ADMIN)], loadComponent: () => import('./features/admin/docentes/docentes').then(m => m.Docentes) },
+      { path: 'usuarios', canMatch: [roleGuard(ADMIN)], loadComponent: () => import('./features/admin/usuarios/usuarios').then(m => m.Usuarios) },
+      { path: 'auditoria', canMatch: [roleGuard(ADMIN)], loadComponent: () => import('./features/admin/auditoria/auditoria').then(m => m.Auditoria) },
 
-      // PROFESSOR
-      {
-        path: 'professor',
-        canMatch: [roleGuard([UserRole.PROFESSOR])],
-        children: [
-          {
-            path: 'disciplinas',
-            loadComponent: () => import('./features/professor/disciplinas/disciplinas').then(m => m.Disciplinas)
-          },
-          {
-            path: 'programas',
-            loadComponent: () => import('./features/professor/professor-programas/professor-programas').then(m => m.ProfessorProgramas)
-          },
-        ]
-      }
+      // Colaborador (o administrador também gerencia)
+      { path: 'disciplinas', canMatch: [roleGuard(GESTAO)], loadComponent: () => import('./features/colaborador/disciplinas/disciplinas').then(m => m.Disciplinas) },
+      { path: 'discentes', canMatch: [roleGuard(GESTAO)], loadComponent: () => import('./features/colaborador/discentes/discentes').then(m => m.Discentes) },
+      { path: 'monitorias', canMatch: [roleGuard(GESTAO)], data: { modo: 'gestao' }, loadComponent: () => import('./features/monitorias/monitorias').then(m => m.Monitorias) },
+      { path: 'monitorias/:id/relatorio', canMatch: [roleGuard(GESTAO)], data: { modo: 'gestao' }, loadComponent: () => import('./features/monitorias/relatorio-monitoria').then(m => m.RelatorioMonitoriaPage) },
+      { path: 'relatorios', canMatch: [roleGuard(GESTAO)], loadComponent: () => import('./features/relatorios/relatorios').then(m => m.Relatorios) },
+
+      // Usuário (discente)
+      { path: 'minhas-monitorias', canMatch: [roleGuard(DISCENTE)], data: { modo: 'discente' }, loadComponent: () => import('./features/monitorias/monitorias').then(m => m.Monitorias) },
+      { path: 'minhas-monitorias/:id/relatorio', canMatch: [roleGuard(DISCENTE)], data: { modo: 'discente' }, loadComponent: () => import('./features/monitorias/relatorio-monitoria').then(m => m.RelatorioMonitoriaPage) },
     ]
-  }
+  },
+  { path: '**', redirectTo: '' },
 ];

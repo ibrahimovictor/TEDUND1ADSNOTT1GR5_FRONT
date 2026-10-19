@@ -4,11 +4,12 @@
             <div class="logo-info-wrapper">
                 <div class="logo-wrapper">
                     <img class="img-fill" ngSrc="images/apenas-logo-responsivo-ucsal.png" alt="Logo da UCSAL" fill priority>
-                    <h1>UCSAL</h1>
                 </div>
+                <h1>Monitoria</h1>
+                <p class="usuario-logado" [title]="perfis()">{{ usuario() }}<br><small>{{ perfis() }}</small></p>
             </div>
             <mat-nav-list class="nav-items-wrapper">
-                @for (item of navItems; track item.route) {
+                @for (item of navItems(); track item.route) {
                     <mat-list-item class="nav-items" [routerLink]="item.route" routerLinkActive="active-nav-item">
                         <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
                         <span matListItemTitle>{{ item.label }}</span>
@@ -16,6 +17,10 @@
                 }
             </mat-nav-list>
             <mat-nav-list class="logout-section">
+                <mat-list-item (click)="alterarSenha()">
+                    <mat-icon matListItemIcon>key</mat-icon>
+                    <span matListItemTitle>Senha</span>
+                </mat-list-item>
                 <mat-list-item (click)="openLogoutDialog()">
                     <mat-icon matListItemIcon>logout</mat-icon>
                     <span matListItemTitle>Sair</span>

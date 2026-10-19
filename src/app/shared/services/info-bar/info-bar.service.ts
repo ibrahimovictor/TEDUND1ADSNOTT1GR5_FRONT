@@ -43,6 +43,13 @@ export class InfoBarService {
     }
   }
 
+  /** Exibe a mensagem de erro devolvida pelo back-end ({ message }) ou um texto padrão. */
+  error(err: any, mensagemPadrao: string) {
+    console.error(mensagemPadrao, err);
+    const message = err?.error?.message || mensagemPadrao;
+    this.show({ message, type: 'error' });
+  }
+
   dismiss() {
     this.snackbar.dismiss();
   }

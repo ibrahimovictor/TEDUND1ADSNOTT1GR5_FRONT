@@ -20,7 +20,7 @@ table {
     overflow: auto;
     /* Necessário para position sticky funcionar */
     position: relative;
-    background-color: rgb(43, 95, 141);
+    background-color: white;
 }
 
 .mat-mdc-header-row {
@@ -65,7 +65,7 @@ mat-row:hover {
 
 /* Estilização específica para coluna de ações */
 .mat-column-actions {
-    max-width: 130px;
+    white-space: nowrap;
     text-align: center;
 }
 
