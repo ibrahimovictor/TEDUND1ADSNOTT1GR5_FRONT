@@ -8,7 +8,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
+import { DataBrAdapter } from './core/data-br-adapter';
 import { TokenInterceptor } from './core/auth/interceptors/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -22,6 +23,8 @@ export const appConfig: ApplicationConfig = {
       ])
     ),
     provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: DateAdapter, useClass: DataBrAdapter },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
   ],
 };

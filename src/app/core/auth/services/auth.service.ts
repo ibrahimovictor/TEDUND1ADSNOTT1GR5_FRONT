@@ -1,28 +1,32 @@
 import { Injectable, inject } from '@angular/core';
-import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, catchError, map, of, shareReplay, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { UserRole } from '../../constants/roles.type';
-import type { Usuario } from '../../../shared/models/usuario.model';
+
+/** Usuário logado: perfis efetivos e cadastros vinculados (GET /api/user/me). */
+export interface UsuarioLogado {
+  id: number;
+  name: string;
+  username: string;
+  roles: UserRole[];
+  docenteId: number | null;
+  discenteId: number | null;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private urlApi = `${environment.apiUrl}/auth`;
-
   private readonly TOKEN_KEY = 'auth_token';
-  private readonly USER_ROLE = 'auth_user_role';
-
   private http = inject(HttpClient);
+  private me$: Observable<UsuarioLogado | null> | null = null;
 
   login(credentials: { username: string; password: string }): Observable<void> {
-    return this.http.post<any>(`${this.urlApi}/signin`, credentials).pipe(
+    return this.http.post<{ accessToken: string }>(`${environment.apiUrl}/auth/signin`, credentials).pipe(
       tap((res) => {
-        if (res?.accessToken) {
-          localStorage.setItem(this.TOKEN_KEY, res.accessToken);
-          this.ensureRole().subscribe();
-        }
+        this.me$ = null;
+        localStorage.setItem(this.TOKEN_KEY, res.accessToken);
       }),
       map(() => void 0)
     );
@@ -30,55 +34,43 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_ROLE);
-  }
-
-  isAuthenticated(): Observable<boolean> {
-    if (!this.getToken() || this.getToken() === '') {
-      return of(false);
-    }
-
-    return this.ensureRole().pipe(
-      map(() => !!this.getToken()),
-      catchError(() => {
-        this.logout();
-        return of(false);
-      })
-    );
+    this.me$ = null;
   }
 
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  private mapBackendToUserRole(roles: Array<{ id: number; name: string }>): UserRole | null {
-    if (!Array.isArray(roles) || roles.length === 0) return null;
-
-    for (const role of roles) {
-      const name = role.name?.toUpperCase();
-      if (name === 'ROLE_ADMIN') return UserRole.ADMIN;
-      if (name === 'ROLE_USER') return UserRole.PROFESSOR;
-    }
-    return null;
-  }
-
-  ensureRole(): Observable<UserRole | null> {
-    if (this.getToken() === null) {
+  /** Dados do usuário logado, em cache até o próximo login/logout. */
+  me(): Observable<UsuarioLogado | null> {
+    if (!this.getToken()) {
       return of(null);
     }
-
-    return this.http
-      .get<Array<{ id: number; name: string }>>(`${environment.apiUrl}/user/permissao`)
-      .pipe(
-        map((roles) => this.mapBackendToUserRole(roles)),
-        tap((role) => {
-          if (role) localStorage.setItem(this.USER_ROLE, role);
-        }),
+    if (!this.me$) {
+      this.me$ = this.http.get<UsuarioLogado>(`${environment.apiUrl}/user/me`).pipe(
         catchError(() => {
           this.logout();
-          throw new Error('Erro ao garantir o papel do usuário.');
-        })
+          return of(null);
+        }),
+        shareReplay(1)
       );
+    }
+    return this.me$;
+  }
+
+  ensureRoles(): Observable<UserRole[]> {
+    return this.me().pipe(map((me) => me?.roles ?? []));
+  }
+
+  isAuthenticated(): Observable<boolean> {
+    return this.me().pipe(map((me) => !!me));
+  }
+
+  /** Página inicial de acordo com o perfil principal. */
+  static rotaInicial(roles: UserRole[]): string {
+    if (roles.includes(UserRole.ADMIN)) return '/ies';
+    if (roles.includes(UserRole.COLABORADOR)) return '/disciplinas';
+    if (roles.includes(UserRole.USUARIO)) return '/minhas-monitorias';
+    return '/login';
   }
 }
-

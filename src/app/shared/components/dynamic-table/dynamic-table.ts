@@ -5,12 +5,8 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-
-interface TableColumn {
-  key: string;
-  label: string;
-  type?: 'text' | 'boolean' | 'number' | 'date';
-}
+import { DynamicTableColumn } from './dynamic-table.model';
+import { dataBr } from '../../labels';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -23,56 +19,22 @@ export class DynamicTable implements AfterViewInit {
   // Inputs
   data = input<any[]>([]);
   filter = input<string>('');
-  columns = input<TableColumn[]>([]);
+  columns = input<DynamicTableColumn[]>([]);
   showActions = input<boolean>(false);
   actionsLabel = input<string>('Ações');
+  pageSize = input<number>(10);
 
   // Template para ações
   @ContentChild('actionsTemplate', { read: TemplateRef }) actionsTemplate!: TemplateRef<any>;
 
-  // Outputs para ações customizadas
   rowClick = output<any>();
 
-  // Computed para colunas incluindo ações
   displayedColumns = computed(() => {
-    const providedColumns = this.columns();
-    let cols: string[] = [];
-
-    if (providedColumns.length > 0) {
-      cols = providedColumns.map(col => col.key);
-    } else {
-      // Gera automaticamente baseado no primeiro objeto
-      const firstItem = this.data()[0];
-      if (firstItem) {
-        cols = Object.keys(firstItem);
-      }
-    }
-
-    // Adiciona coluna de ações se habilitada
+    const cols = this.columns().map(col => col.key);
     if (this.showActions()) {
       cols.push('actions');
     }
-
     return cols;
-  });
-
-  // Computed para metadados das colunas
-  columnMetadata = computed(() => {
-    const providedColumns = this.columns();
-    if (providedColumns.length > 0) {
-      return providedColumns;
-    }
-
-    // Gera metadados automaticamente
-    const firstItem = this.data()[0];
-    if (firstItem) {
-      return Object.keys(firstItem).map(key => ({
-        key,
-        label: this.formatLabel(key),
-        type: this.detectType(firstItem[key])
-      }));
-    }
-    return [];
   });
 
   dataSource = new MatTableDataSource<any>([]);
@@ -81,12 +43,14 @@ export class DynamicTable implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
-    // Atualiza dados quando o input "data" muda
+    // Filtra pelo texto exibido (inclusive valores formatados)
+    this.dataSource.filterPredicate = (row, filtro) =>
+      this.columns().some(col => this.formatValue(row[col.key], col, row).toLowerCase().includes(filtro));
+
     effect(() => {
       this.dataSource.data = this.data() ?? [];
     });
 
-    // Aplica filtro quando o input "filter" muda
     effect(() => {
       const value = (this.filter() ?? '').trim().toLowerCase();
       this.dataSource.filter = value;
@@ -101,40 +65,28 @@ export class DynamicTable implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  // Método para emitir clique na linha
   onRowClick(row: any): void {
     this.rowClick.emit(row);
   }
 
-  // Formata o label da coluna
-  private formatLabel(key: string): string {
-    return key
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/^./, str => str.toUpperCase())
-      .trim();
-  }
-
-  // Detecta o tipo do valor automaticamente
-  private detectType(value: any): 'text' | 'boolean' | 'number' | 'date' {
-    if (typeof value === 'boolean') return 'boolean';
-    if (typeof value === 'number') return 'number';
-    if (value instanceof Date || (typeof value === 'string' && !isNaN(Date.parse(value)))) return 'date';
-    return 'text';
-  }
-
-  // Formata o valor baseado no tipo
-  formatValue(value: any, type: string): string {
-    switch (type) {
+  formatValue(value: any, col: DynamicTableColumn, row: any): string {
+    if (col.format) {
+      return col.format(value, row) ?? '';
+    }
+    switch (col.type) {
       case 'boolean':
         return value ? 'Sim' : 'Não';
       case 'date':
-        if (value === null || value === undefined || value === '') return '';
-        const date = value instanceof Date ? value : new Date(value);
-        return isNaN(date.getTime()) ? '' : date.toLocaleDateString('pt-BR');
+        return typeof value === 'string' ? dataBr(value) : value ? new Date(value).toLocaleDateString('pt-BR') : '';
+      case 'datetime': {
+        if (!value) return '';
+        const d = new Date(value);
+        return isNaN(d.getTime()) ? '' : d.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+      }
       case 'number':
-        return value?.toLocaleString('pt-BR') || '0';
+        return value === null || value === undefined ? '' : Number(value).toLocaleString('pt-BR');
       default:
-        return value?.toString() || '';
+        return value === null || value === undefined ? '' : String(value);
     }
   }
 }

@@ -48,3 +48,102 @@ input[type="date"]::-webkit-inner-spin-button {
   display: none;
   -webkit-appearance: none; /* Remove a aparência padrão do navegador */
 }
+
+/* ======================================================= */
+/* LAYOUT DAS PÁGINAS DE CADASTRO E FORMULÁRIOS            */
+/* ======================================================= */
+.pagina {
+    width: min(1280px, 94%);
+    margin: 0 auto;
+    padding: 32px 0;
+}
+
+.pagina-header h1 {
+    font-size: 2rem;
+    margin-bottom: 4px;
+}
+
+.pagina-header .subtitulo {
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.barra {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0 16px;
+}
+
+.barra .busca { width: 320px; }
+.barra .filtro { width: 180px; }
+.barra .espaco { flex: 1; }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 16px;
+    row-gap: 4px;
+    padding-top: 8px;
+}
+
+.form-grid .col-2 { grid-column: span 2; }
+
+.secao-form {
+    grid-column: span 2;
+    margin: 12px 0 4px;
+    font-weight: 600;
+    color: var(--primary-color);
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.linha-lista {
+    grid-column: span 2;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.linha-lista > mat-form-field { flex: 1; }
+
+.largura-total { width: 100%; }
+
+.cartoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.cartao {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cartao h3 { color: var(--primary-color); }
+.cartao p { color: #555; flex: 1; }
+
+.dados-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 8px 24px;
+    background: #f5f8fc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.dados-resumo span { display: block; font-size: 0.8rem; color: #666; }
+.dados-resumo strong { font-weight: 600; }
+
+.dica { color: #666; font-size: 0.85rem; }
